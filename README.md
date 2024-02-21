@@ -2,6 +2,7 @@
 
 ## Core Libraries
 chromadb==0.4.22
+faiss-cpu==1.7.4
 langchain==0.1.8
 langchain-community==0.0.21
 langchain-core==0.1.24

@@ -11,7 +11,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 
 # from langchain import HuggingFaceHub
-# from langchain.embeddings import HuggingFaceBgeEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 # from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 
 
@@ -58,10 +58,12 @@ def split_docs(documents, chunk_size=2000, chunk_overlap=250):
 
 
 def get_embeddings(OPENAI_API_KEY):
+    load_dotenv()
     # embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-    # embeddings = HuggingFaceBgeEmbeddings(model_name="all-MiniLM-L6-v2")
     # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl") 
-    return OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    # embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    return embeddings
 
 def get_vectorstore(documents, embeddings):
     return Chroma.from_documents(documents=documents, embedding=embeddings)

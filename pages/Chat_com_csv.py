@@ -1,0 +1,35 @@
+import pandas as pd
+import streamlit as st
+from langchain_openai import OpenAI, ChatOpenAI
+from langchain.agents.agent_types import AgentType
+from langchain_experimental.agents import create_pandas_dataframe_agent
+# from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+from dotenv import load_dotenv
+load_dotenv()
+
+query=""
+button = None
+
+def query_agent(data, query):
+    df = pd.read_csv(data)
+    llm = OpenAI(model="gpt-3.5-turbo-instruct", temperature=0.7)
+    agent = create_pandas_dataframe_agent(llm, df, verbose=True)
+    return agent.run(query)
+
+
+st.title("Pronto para analisar alguns cvs📝")
+st.header("Carregue o seu ficheiro csv⬇️:")
+          
+data = st.file_uploader("Carregamento do Ficheiro", type="csv")
+if data:
+    st.success("Arquivo carregado com successo")
+    query = st.text_area("Digite a sua pergunta")
+    button = st.button("Enviar Pergunta")
+
+if button:
+    if not data:
+        st.error("Erro.Não foi carregado nenhum arquivo.")
+    
+    else:
+        answer = query_agent(data=data, query=query)
+        st.write(answer)

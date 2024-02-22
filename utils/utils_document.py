@@ -54,6 +54,8 @@ def get_load_docs(pdfs):
 def split_docs(documents, chunk_size=2000, chunk_overlap=250):
     text_splitter = RecursiveCharacterTextSplitter(separators=["\n", "\n\n","\n\n\n"], chunk_size=chunk_size, chunk_overlap=chunk_overlap) # Break large documents in few chunks
     docs = text_splitter.split_documents(documents=documents)
+    # docs = text_splitter.split_text(document_in_text_formatat)
+    # chunks = text_splitter.create_documents(docs)
     return docs
 
 
@@ -61,8 +63,8 @@ def get_embeddings(OPENAI_API_KEY):
     load_dotenv()
     # embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
     # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl") 
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    # embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    # embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
     return embeddings
 
 def get_vectorstore(documents, embeddings):

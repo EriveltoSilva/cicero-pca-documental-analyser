@@ -9,6 +9,7 @@ langchain-core==0.1.24
 langchain-openai==0.0.6
 openai==1.12.0
 pypdf==4.0.2
+PyPDF2==3.0.1
 python-dotenv==1.0.1
 streamlit==1.31.1
 streamlit-chat==0.1.1

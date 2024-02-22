@@ -1,9 +1,8 @@
 import pandas as pd
 import streamlit as st
-from langchain_openai import OpenAI, ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.agents.agent_types import AgentType
-from langchain_experimental.agents import create_pandas_dataframe_agent
-# from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -12,8 +11,12 @@ button = None
 
 def query_agent(data, query):
     df = pd.read_csv(data)
-    llm = OpenAI(model="gpt-3.5-turbo-instruct", temperature=0.7)
-    agent = create_pandas_dataframe_agent(llm, df, verbose=True)
+    agent = create_pandas_dataframe_agent(
+        ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613"),
+        df,
+        verbose=True,
+        agent_type=AgentType.OPENAI_FUNCTIONS,
+    )
     return agent.run(query)
 
 

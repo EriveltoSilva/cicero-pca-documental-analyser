@@ -87,9 +87,6 @@ def query_agent_with_memory(query, session_id, agent):
 
 
 
-
-
-
 st.title("Pronto para analisar alguns csv📝")
 data = st.file_uploader("Carregamento do Ficheiro", type="csv")
 if data:
@@ -97,26 +94,20 @@ if data:
     st.session_state['agent'] = create_agent(data)
     st.success("Arquivo carregado com successo")
 
-response_container = st.container()
-container = st.container()
+    response_container = st.container()
+    container = st.container()
 
-with container:
-    with st.form(key='chat_csv_form', clear_on_submit=True):
-        question = st.text_area("Digite a sua pergunta")
-        submit_button = st.form_submit_button(label='Enviar Pergunta')
-
-        if submit_button:
-            if not data:
-                st.error("Erro.Não foi carregado nenhum arquivo.")
-            else:
+    with container:
+        question = st.chat_input("Digite a sua pergunta")
+        if question:
+            with response_container:
                 answer = query_agent(question,st.session_state['agent'])
-                with response_container:
-                    for i in range(len(st.session_state['chat_history'])):
-                            if (i % 2) == 0:
-                                message(st.session_state['chat_history'][i].content, is_user=True, key=str(i) + '_user')
-                                # st.write("Eu:")
-                                # st.write(st.session_state['chat_history'][i].content)
-                            else:
-                                message(st.session_state['chat_history'][i].content, key=str(i) + '_AI')
-                                # st.write("Cícero:")
-                                # st.write(st.session_state['chat_history'][i].content)
+                for i in range(len(st.session_state['chat_history'])):
+                    if (i % 2) == 0:
+                        with st.chat_message("user"):
+                            st.write(st.session_state['chat_history'][i].content)
+                    else:
+                        with st.chat_message("assistant"):
+                            st.write(st.session_state['chat_history'][i].content)
+
+                

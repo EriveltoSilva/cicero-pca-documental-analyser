@@ -15,9 +15,10 @@ class MultiApp:
     
     def run():
         with st.sidebar:
+            st.image('./images/logo-main.png')
             app = option_menu(
-                menu_title="Cicero",
-                menu_icon='chat-text-fill',
+                menu_title="Menu Cicero",
+                # menu_icon='chat-text-fill',
                 options=['Conta', 'Conversar com pdf', 'Conversar com CSV', 'Sair'],
                 icons=['house-fill', 'person-circle'],
                 default_index=0,

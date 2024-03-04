@@ -4,7 +4,7 @@ from firebase_admin import auth
 from firebase_admin import credentials
 
 cred = credentials.Certificate("./db/cicero-pca-c5e49bd1adba.json")
-firebase_admin.initialize_app(cred)
+# firebase_admin.initialize_app(cred)
 
 def app():
     st.title("Bem Vindo ao :blue[Cicero], o Seu assistente Virtual Favorito🤖")

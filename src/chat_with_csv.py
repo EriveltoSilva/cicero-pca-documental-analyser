@@ -107,6 +107,7 @@ def app():
                     for i in range(len(st.session_state['chat_history'])):
                         if (i % 2) == 0:
                             with st.chat_message("user"):
+                                print(type(st.session_state['chat_history'][i]))
                                 st.write(st.session_state['chat_history'][i].content)
                         else:
                             with st.chat_message("assistant"):

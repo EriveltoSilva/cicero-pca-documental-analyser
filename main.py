@@ -1,5 +1,5 @@
 import streamlit as st
-from src import accounts
+# from src import accounts
 from src import chat_with_csv
 from src import chat_with_pdf
 from streamlit_option_menu import option_menu
@@ -19,7 +19,7 @@ class MultiApp:
             app = option_menu(
                 menu_title="Menu Cicero",
                 # menu_icon='chat-text-fill',
-                options=['Conta', 'Conversar com pdf', 'Conversar com CSV', 'Sair'],
+                options=['Conversar com pdf', 'Conversar com CSV', 'Sair'],
                 icons=['house-fill', 'person-circle'],
                 default_index=0,
                 styles={
@@ -30,9 +30,9 @@ class MultiApp:
                 }
             )
 
-        if app=='Conta':
-            accounts.app()
-        elif app=='Conversar com pdf':
+        # if app=='Conta':
+            # accounts.app()
+        if app=='Conversar com pdf':
             chat_with_pdf.app()
         elif app=='Conversar com CSV':
             chat_with_csv.app()
